@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.swing.JOptionPane;
 
 public class KillController {
 	public KillController() {
