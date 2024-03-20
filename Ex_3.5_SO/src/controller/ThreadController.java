@@ -39,12 +39,11 @@ public class ThreadController extends Thread {
 
 			String linha;
 			int cont = 0;
+			double tempoTotal = 0; // Inicialize tempoTotal
 			while ((linha = buffer.readLine()) != null) {
 				if (linha.contains("time=")) {
-
 					int indInicio = linha.indexOf("time=") + 5;
 					int indFim = linha.indexOf(" ms");
-
 					String tempoStr = linha.substring(indInicio, indFim);
 
 					double tempo = Double.parseDouble(tempoStr);
@@ -52,9 +51,14 @@ public class ThreadController extends Thread {
 					cont++;
 				}
 			}
-			
-			double tempoMedio = tempoTotal / cont;
-			System.out.println("Tempo médio de ping do site  " + acesso + ": " + tempoMedio);
+
+			if (cont > 0) { // Verifica se há pelo menos um ping bem-sucedido
+				double tempoMedio = tempoTotal / cont;
+				System.out.println("Tempo médio de ping do site  " + acesso + ": " + tempoMedio);
+			} else {
+				System.out.println("Nenhum ping bem-sucedido para o site " + acesso);
+			}
+
 			fluxo.close();
 			leitor.close();
 			buffer.close();
@@ -62,5 +66,4 @@ public class ThreadController extends Thread {
 			e.printStackTrace();
 		}
 	}
-
 }
